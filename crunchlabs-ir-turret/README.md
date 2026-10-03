@@ -4,6 +4,7 @@
 |---|---|
 | `01_remote_explorer` | Shows the code for each remote button in the Serial Monitor. Upload this first. |
 | `02_turret_fun_pack` | Aim and fire with the remote, plus 6 mini projects and 3 open slots for your own projects. |
+| `03_servo_calibrator` | Type numbers in the Serial Monitor to find the best tuning values for your turret's servos. |
 
 ## Getting started
 
@@ -224,6 +225,34 @@ the sketch:
 - **Barrel turns too far or not far enough for one dart?** Change
   `ROLL_ONE_DART_MS`.
 - **Don't want a penalty dart when you lose a game?** Set `PENALTY_DART = false`.
+
+### Using the servo calibrator (`03_servo_calibrator`)
+
+Instead of guessing, measure the numbers. Upload `03_servo_calibrator`, open
+the Serial Monitor at 9600 baud, and set the line ending (bottom of the Serial
+Monitor) to **Newline**. Type a command and press Enter:
+
+| Command | What it does |
+|---|---|
+| `y`, `p` or `r` | Choose a servo: **y**aw (left/right), **p**itch (up/down) or **r**oll (barrel) |
+| a number, like `90` | Send that value to the chosen servo |
+| `t` + a time, like `t158` | Spin the chosen yaw or roll servo at full speed for that many milliseconds, then stop |
+| `?` | Show the help again |
+
+**Find `YAW_STOP`:** Type `y`, then try `90`. If the turret creeps, try `89`,
+`91`, `88`, `92` and so on until it stays perfectly still. Put that number in
+`YAW_STOP` in the fun pack.
+
+**Find `ROLL_STOP`:** Do the same after typing `r`, watching the barrel.
+
+**Find `ROLL_ONE_DART_MS`:** **Take the darts out first.** Type `r`, then your
+stop number, then `t158`. The barrel should turn exactly one chamber (1/6 of a
+turn). If it goes too far, try a smaller number like `t150`. If it doesn't go
+far enough, try `t165`. Put the best time in `ROLL_ONE_DART_MS`.
+
+**Check pitch limits:** Type `p`, then try angles like `20` or `160` to see
+how far the barrel can tilt before it hits something. Use those for `PITCH_MIN`
+and `PITCH_MAX`. The calibrator never goes below 10 or above 175.
 
 ## Writing your own project
 
