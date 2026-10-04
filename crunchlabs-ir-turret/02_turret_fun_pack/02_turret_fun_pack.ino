@@ -25,8 +25,8 @@ const uint8_t ROLL_PIN  = 12;  // spins the barrel to fire (continuous servo)
 // ---------- Remote button codes (find others with 01_remote_explorer) ----------
 const uint8_t BTN_LEFT  = 0x08;
 const uint8_t BTN_RIGHT = 0x5A;
-const uint8_t BTN_UP    = 0x18;
-const uint8_t BTN_DOWN  = 0x52;
+const uint8_t BTN_UP    = 0x52;
+const uint8_t BTN_DOWN  = 0x18;
 const uint8_t BTN_OK    = 0x1C;
 const uint8_t BTN_STAR  = 0x16;
 const uint8_t BTN_HASH  = 0x0D;
@@ -52,7 +52,7 @@ const int PITCH_MIN    = 10;   // lowest safe pitch angle
 const int PITCH_MAX    = 175;  // highest safe pitch angle
 const int PITCH_HOME   = 100;  // "looking straight ahead"
 const int PITCH_STEP   = 8;    // degrees per arrow tap
-const int PITCH_UP     = 1;    // if UP moves the barrel DOWN, change to -1
+const int PITCH_UP     = -1;   // stock turret: smaller angle = barrel up. If UP tilts DOWN, use 1
 const int PITCH_SMOOTH_MS = 4; // smaller = faster tilting
 
 const int ROLL_STOP    = 90;   // value that makes the roll servo stand still
