@@ -6,6 +6,25 @@
 | `02_turret_fun_pack` | Aim and fire with the remote, plus 6 mini projects and 3 open slots for your own projects. |
 | `03_servo_calibrator` | Type numbers in the Serial Monitor to find the best tuning values for your turret's servos. |
 
+## Hardware schematic
+
+![Turret wiring schematic](turret_schematic.svg)
+
+| Part | Arduino pin | Power | What it does |
+|---|---|---|---|
+| IR receiver | **D9** (OUT) | +5V, GND | Turns the remote's light flashes into a signal the Arduino reads |
+| Yaw servo (continuous) | **D10** | +5V, GND | Turns the turret left and right |
+| Pitch servo (180°) | **D11** | +5V, GND | Tilts the barrel up and down |
+| Roll servo (continuous) | **D12** | +5V, GND | Spins the barrel to fire darts |
+| USB power bank | 5V, GND | n/a | Powers everything |
+| On-board LED | D13 | n/a | Blinks when an IR signal arrives |
+
+Every part shares the same **+5V** and **ground** connections, usually the + and
+− rails of the breadboard. All the grounds must be connected together, or the
+signals have nothing to be measured against and the servos will act strangely.
+The pin numbers match these sketches. If your build is wired differently,
+change the `_PIN` numbers at the top of each sketch.
+
 ## Getting started
 
 1. Install the **IRremote** library (version 4.x). In the Arduino IDE, open
