@@ -246,7 +246,7 @@ below. Ideas are in [Challenge ideas](#challenge-ideas).
 Every turret is a little different. Change the **Tuning knobs** near the top of
 the sketch:
 
-- **Up arrow tilts down?** Set `PITCH_UP = -1`.
+- **Up arrow tilts down?** Set `PITCH_UP = 1`. The default, `-1`, matches the stock CrunchLabs code, where a smaller angle tilts the barrel up.
 - **Turret creeps sideways when idle?** Adjust `YAW_STOP` a little at a time,
   for example to 89 or 91.
 - **Barrel turns too far or not far enough for one dart?** Change
@@ -325,3 +325,19 @@ void myProject8() {
 5. **Lazy patrol:** make the patrol stop and "look around" at random times.
 
 **Safety:** aim at targets like cups, cardboard or paper, never at faces, eyes or pets.
+
+## Sources
+
+These sketches follow CrunchLabs' original IR Turret starter code:
+
+- **Official:** the [Hack Pack IDE](https://ide.crunchlabs.com/bonus-content/ir-turret) has the starter code and bonus lessons for the IR Turret.
+- **Mirror of the starter code:**
+  [`IRturretStarterCode.ino`](https://github.com/rglidden/hackpack/blob/main/001-ir-turret/IRturretStarterCode/IRturretStarterCode.ino)
+  (MIT License, © Crunchlabs LLC).
+
+The stock code confirms:
+- the receiver is on **pin 9**, read by the IRremote library using the **NEC** protocol,
+- the yaw, pitch and roll servos are on **pins 10, 11 and 12**,
+- the button codes are the ones used in `02_turret_fun_pack` (Up = `0x52`, Down = `0x18`),
+- Up *lowers* the pitch angle,
+- the timing values are `yawPrecision = 150` and `rollPrecision = 158`.
