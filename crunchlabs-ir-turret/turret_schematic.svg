@@ -55,7 +55,7 @@
   <text x="480" y="278" text-anchor="middle" class="sub">USB-C, on carrier board</text>
   <text x="480" y="322" text-anchor="middle" class="sub">ATmega328P · 16 MHz</text>
   <text x="480" y="352" text-anchor="middle" class="sub">D13 on-board LED</text>
-  <text x="480" y="370" text-anchor="middle" class="sub">blinks when IR arrives</text>
+  <text x="480" y="370" text-anchor="middle" class="sub">blinks when a code arrives</text>
 
   <!-- Nano 5V (top) -->
   <text x="430" y="182" text-anchor="middle" class="pin">5V</text>
@@ -80,20 +80,20 @@
   <path class="sig" d="M600 300 H740"/>
   <path class="sig" d="M600 390 H740"/>
   <path class="sig" d="M600 480 H740"/>
-  <text x="670" y="202" text-anchor="middle" class="dpin">IR data in</text>
+  <text x="670" y="202" text-anchor="middle" class="dpin">D9: purple wire</text>
   <text x="670" y="292" text-anchor="middle" class="dpin">servo pulses</text>
   <text x="670" y="382" text-anchor="middle" class="dpin">servo pulses</text>
   <text x="670" y="472" text-anchor="middle" class="dpin">servo pulses</text>
 
-  <!-- ===================== IR receiver (cy = 210) ===================== -->
+  <!-- ===================== Receiver board (cy = 210) ===================== -->
   <rect class="box" x="740" y="175" width="240" height="70" rx="8"/>
-  <path d="M800 182 a14 14 0 0 1 28 0" fill="#3a3a44"/>
-  <path d="M790 160 l8 10 M805 156 l6 12 M822 156 l-2 12" stroke="#8a3ccf" stroke-width="2" fill="none"/>
-  <text x="860" y="207" text-anchor="middle" class="name">IR receiver</text>
-  <text x="860" y="228" text-anchor="middle" class="sub">38 kHz module</text>
-  <text x="748" y="206" class="dpin">OUT</text>
-  <text x="972" y="200" text-anchor="end" class="dpin">+</text>
-  <text x="972" y="228" text-anchor="end" class="dpin">−</text>
+  <!-- zigzag trace like the one printed on the board -->
+  <path d="M754 232 V192 H762 V226 H770 V192 H778 V226 H786 V192" stroke="#8a8a94" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <text x="868" y="201" text-anchor="middle" class="name">Receiver board</text>
+  <text x="868" y="220" text-anchor="middle" class="sub">Hack Pack PCB</text>
+  <text x="868" y="237" text-anchor="middle" class="dpin">NEC remote codes</text>
+  <text x="972" y="200" text-anchor="end" class="dpin">IN</text>
+  <text x="972" y="228" text-anchor="end" class="dpin">GND</text>
   <path class="pwr" d="M980 196 H1020"/>
   <circle cx="1024" cy="196" r="5" fill="#d1342f"/>
   <text x="1034" y="200" class="net">+5V</text>
@@ -157,5 +157,5 @@
   <text x="460" y="641" class="note">USB (optional)</text>
   <text x="580" y="641" class="note">Every <tspan fill="#d1342f" font-weight="bold">+5V</tspan> label is one connection (carrier board 5V header);</text>
   <text x="580" y="661" class="note">every ground symbol is one connection (carrier board GND header).</text>
-  <text x="50" y="684" class="sub">Power: red wires from the carrier 5V header and black wires from its GND header go to each servo's red (+) and brown (−) leads.</text>
+  <text x="50" y="684" class="sub">Power: red wires from the carrier 5V header and black wires from its GND header go to each part's + and −: servo red/brown leads, receiver IN/GND.</text>
 </svg>
