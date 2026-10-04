@@ -12,7 +12,7 @@
 
 | Part | Arduino pin | Power | What it does |
 |---|---|---|---|
-| IR receiver | **D9** (OUT) | +5V, GND | Turns the remote's light flashes into a signal the Arduino reads |
+| Receiver board (Hack Pack PCB) | **D9** (purple wire) | IN = +5V, GND | Picks up the remote and sends its button codes to the Arduino, which reads them as NEC codes |
 | #1 Yaw servo (continuous) | **D10** | +5V, GND | Turns the turret left and right |
 | #2 Pitch servo (180°) | **D11** | +5V, GND | Tilts the barrel up and down |
 | #3 Roll servo (continuous) | **D12** | +5V, GND | Spins the barrel to fire darts |
@@ -23,7 +23,7 @@
 red power switch.
 
 - **Signals:** A 4-wire ribbon (yellow, blue, green, purple) plugs into the
-  header beside **D9–D12** and runs to the IR receiver and the three servos.
+  header beside **D9–D12** and runs to the receiver board and the three servos.
 - **Power:** Red wires from the carrier's **5V header** and black wires from its
   **GND header** go to each servo's red (+) and brown (−) leads.
 - **Servo numbers:** The stickers say which servo is which: #1 yaw, #2 pitch,
