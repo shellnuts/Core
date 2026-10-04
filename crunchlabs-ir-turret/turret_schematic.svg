@@ -20,21 +20,27 @@
   <rect x="0" y="0" width="1100" height="700" fill="#ffffff"/>
 
   <text x="50" y="48" font-size="24" font-weight="bold" fill="#1c1c22">CrunchLabs IR Turret wiring</text>
-  <text x="50" y="72" class="sub">Pin numbers match the sketches in this folder (IR on 9, servos on 10, 11, 12).</text>
+  <text x="50" y="72" class="sub">Matches your build: Nano on a carrier board, signals on D9–D12, servo stickers #1 yaw, #2 pitch, #3 roll.</text>
 
-  <!-- ===================== Power bank ===================== -->
-  <rect class="box" x="50" y="160" width="170" height="90" rx="8"/>
-  <text x="135" y="198" text-anchor="middle" class="name">USB power bank</text>
-  <text x="135" y="220" text-anchor="middle" class="sub">5 V out, rechargeable</text>
-  <text x="90" y="176" text-anchor="middle" class="dpin">+</text>
-  <text x="180" y="244" text-anchor="middle" class="dpin">−</text>
-  <!-- + up to +5V -->
-  <path class="pwr" d="M90 160 V122"/>
+  <!-- ===================== Power bank + switch ===================== -->
+  <rect class="box" x="50" y="215" width="170" height="80" rx="8"/>
+  <text x="135" y="250" text-anchor="middle" class="name">USB power bank</text>
+  <text x="135" y="272" text-anchor="middle" class="sub">5 V, rechargeable</text>
+  <text x="90" y="231" text-anchor="middle" class="dpin">+</text>
+  <text x="180" y="289" text-anchor="middle" class="dpin">−</text>
+  <!-- + through the carrier board's ON/OFF switch up to +5V -->
+  <path class="pwr" d="M90 215 V196"/>
+  <circle cx="90" cy="192" r="4" fill="#ffffff" stroke="#d1342f" stroke-width="2.5"/>
+  <circle cx="90" cy="160" r="4" fill="#ffffff" stroke="#d1342f" stroke-width="2.5"/>
+  <path class="pwr" d="M90 188 L108 164"/>
+  <text x="116" y="174" class="sub">red ON/OFF</text>
+  <text x="116" y="190" class="sub">switch</text>
+  <path class="pwr" d="M90 156 V122"/>
   <circle cx="90" cy="118" r="5" fill="#d1342f"/>
   <text x="102" y="122" class="net">+5V</text>
   <!-- − down to ground -->
-  <path class="gnd" d="M180 250 V278"/>
-  <path class="gnd" d="M166 278 H194 M171 284 H189 M176 290 H184"/>
+  <path class="gnd" d="M180 295 V318"/>
+  <path class="gnd" d="M166 318 H194 M171 324 H189 M176 330 H184"/>
 
   <!-- ===================== Computer (optional) ===================== -->
   <rect class="box" x="50" y="400" width="170" height="80" rx="8" stroke-dasharray="6 5"/>
@@ -46,6 +52,7 @@
   <!-- ===================== Arduino Nano ===================== -->
   <rect class="mcu" x="360" y="160" width="240" height="380" rx="10"/>
   <text x="480" y="300" text-anchor="middle" class="name">Arduino Nano</text>
+  <text x="480" y="278" text-anchor="middle" class="sub">USB-C, on carrier board</text>
   <text x="480" y="322" text-anchor="middle" class="sub">ATmega328P · 16 MHz</text>
   <text x="480" y="352" text-anchor="middle" class="sub">D13 on-board LED</text>
   <text x="480" y="370" text-anchor="middle" class="sub">blinks when IR arrives</text>
@@ -60,7 +67,7 @@
   <path class="gnd" d="M430 540 V568"/>
   <path class="gnd" d="M416 568 H444 M421 574 H439 M426 580 H434"/>
   <!-- Nano USB (left) -->
-  <text x="372" y="445" class="pin">USB</text>
+  <text x="372" y="445" class="pin">USB-C</text>
 
   <!-- Nano signal pins (right) -->
   <text x="588" y="214" text-anchor="end" class="pin">D9</text>
@@ -97,7 +104,7 @@
   <rect class="box" x="740" y="265" width="240" height="70" rx="8"/>
   <circle cx="776" cy="300" r="17" fill="#ffffff" stroke="#2b2b33" stroke-width="2"/>
   <text x="776" y="306" text-anchor="middle" font-size="17" font-weight="bold" fill="#2b2b33">M</text>
-  <text x="885" y="297" text-anchor="middle" class="name">Yaw servo</text>
+  <text x="885" y="297" text-anchor="middle" class="name">#1 Yaw servo</text>
   <text x="885" y="318" text-anchor="middle" class="sub">continuous · left/right</text>
   <text x="972" y="290" text-anchor="end" class="dpin">+</text>
   <text x="972" y="318" text-anchor="end" class="dpin">−</text>
@@ -111,7 +118,7 @@
   <rect class="box" x="740" y="355" width="240" height="70" rx="8"/>
   <circle cx="776" cy="390" r="17" fill="#ffffff" stroke="#2b2b33" stroke-width="2"/>
   <text x="776" y="396" text-anchor="middle" font-size="17" font-weight="bold" fill="#2b2b33">M</text>
-  <text x="885" y="387" text-anchor="middle" class="name">Pitch servo</text>
+  <text x="885" y="387" text-anchor="middle" class="name">#2 Pitch servo</text>
   <text x="885" y="408" text-anchor="middle" class="sub">180° · up/down</text>
   <text x="972" y="380" text-anchor="end" class="dpin">+</text>
   <text x="972" y="408" text-anchor="end" class="dpin">−</text>
@@ -125,7 +132,7 @@
   <rect class="box" x="740" y="445" width="240" height="70" rx="8"/>
   <circle cx="776" cy="480" r="17" fill="#ffffff" stroke="#2b2b33" stroke-width="2"/>
   <text x="776" y="486" text-anchor="middle" font-size="17" font-weight="bold" fill="#2b2b33">M</text>
-  <text x="885" y="477" text-anchor="middle" class="name">Roll servo</text>
+  <text x="885" y="477" text-anchor="middle" class="name">#3 Roll servo</text>
   <text x="885" y="498" text-anchor="middle" class="sub">continuous · fires darts</text>
   <text x="972" y="470" text-anchor="end" class="dpin">+</text>
   <text x="972" y="498" text-anchor="end" class="dpin">−</text>
@@ -134,6 +141,9 @@
   <text x="1034" y="470" class="net">+5V</text>
   <path class="gnd" d="M980 494 H1020 V502"/>
   <path class="gnd" d="M1008 502 H1032 M1012 507 H1028 M1017 512 H1023"/>
+
+  <text x="682" y="538" text-anchor="middle" class="dpin">D9–D12: 4-wire ribbon</text>
+  <text x="682" y="554" text-anchor="middle" class="dpin">yellow · blue · green · purple</text>
 
   <!-- ===================== Legend + notes ===================== -->
   <line x1="50" y1="608" x2="1050" y2="608" stroke="#d8d8de" stroke-width="1"/>
@@ -145,7 +155,7 @@
   <text x="350" y="641" class="note">Signal</text>
   <path class="usb" d="M420 636 H450"/>
   <text x="460" y="641" class="note">USB (optional)</text>
-  <text x="580" y="641" class="note">Every <tspan fill="#d1342f" font-weight="bold">+5V</tspan> label is one connection (breadboard + rail);</text>
-  <text x="580" y="661" class="note">every ground symbol is one connection (breadboard − rail).</text>
-  <text x="50" y="684" class="sub">Servo wire colors are usually brown/black = −, red = +, orange/yellow = signal. Check your own build if anything differs.</text>
+  <text x="580" y="641" class="note">Every <tspan fill="#d1342f" font-weight="bold">+5V</tspan> label is one connection (carrier board 5V header);</text>
+  <text x="580" y="661" class="note">every ground symbol is one connection (carrier board GND header).</text>
+  <text x="50" y="684" class="sub">Power: red wires from the carrier 5V header and black wires from its GND header go to each servo's red (+) and brown (−) leads.</text>
 </svg>
