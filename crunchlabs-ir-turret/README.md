@@ -13,17 +13,25 @@
 | Part | Arduino pin | Power | What it does |
 |---|---|---|---|
 | IR receiver | **D9** (OUT) | +5V, GND | Turns the remote's light flashes into a signal the Arduino reads |
-| Yaw servo (continuous) | **D10** | +5V, GND | Turns the turret left and right |
-| Pitch servo (180°) | **D11** | +5V, GND | Tilts the barrel up and down |
-| Roll servo (continuous) | **D12** | +5V, GND | Spins the barrel to fire darts |
-| USB power bank | 5V, GND | n/a | Powers everything |
+| #1 Yaw servo (continuous) | **D10** | +5V, GND | Turns the turret left and right |
+| #2 Pitch servo (180°) | **D11** | +5V, GND | Tilts the barrel up and down |
+| #3 Roll servo (continuous) | **D12** | +5V, GND | Spins the barrel to fire darts |
+| USB power bank | 5V, GND | n/a | Powers everything, through the carrier board's red ON/OFF switch |
 | On-board LED | D13 | n/a | Blinks when an IR signal arrives |
 
-Every part shares the same **+5V** and **ground** connections, usually the + and
-− rails of the breadboard. All the grounds must be connected together, or the
-signals have nothing to be measured against and the servos will act strangely.
-The pin numbers match these sketches. If your build is wired differently,
-change the `_PIN` numbers at the top of each sketch.
+**How the build is wired:** The Nano (USB-C) sits on a carrier board with a
+red power switch.
+
+- **Signals:** A 4-wire ribbon (yellow, blue, green, purple) plugs into the
+  header beside **D9–D12** and runs to the IR receiver and the three servos.
+- **Power:** Red wires from the carrier's **5V header** and black wires from its
+  **GND header** go to each servo's red (+) and brown (−) leads.
+- **Servo numbers:** The stickers say which servo is which: #1 yaw, #2 pitch,
+  #3 roll.
+
+All the grounds must be connected together, or the signals have nothing to be
+measured against and the servos will act strangely. If you rewire a signal to
+a different pin, change the `_PIN` numbers at the top of each sketch.
 
 ## Getting started
 
