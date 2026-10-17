@@ -3,6 +3,9 @@
 **Goal:** write C that is correct on a microcontroller: no undefined behaviour,
 no hidden overflow, no wasted cycles, and every line testable on your PC.
 
+> **New to C or electronics?** Read the [lessons](../lessons/README.md)
+> first. Each exercise below names the lesson it needs.
+
 **How this phase works:** each exercise has
 - a **header** in `lib/` that defines the API and the rules (read it first, carefully),
 - a **stub** `.c` file with `TODO`s for you to fill in,
@@ -24,6 +27,8 @@ Hints are folded. Try for at least 20 minutes before opening them.
 ---
 
 ## Exercise 0 — Read before you write (1 evening)
+
+📖 **Read first:** Lessons 1–3 and 5
 
 Read these files from the starter and make sure you understand every line:
 `lib/ringbuf.c`, `firmware/drivers/systick.c`, `firmware/drivers/gpio.c`.
@@ -55,6 +60,8 @@ Check your answers by compiling a small test program.
 
 ## Exercise 1 — Bit manipulation · `lib/bits.h`
 
+📖 **Read first:** Lesson 4
+
 **Concepts:** masks, shifts, read-modify-write, the `1 << 31` trap,
 why shifting by ≥ the type width is undefined.
 
@@ -81,6 +88,8 @@ rebuild, and check that LED0 still blinks.
 
 ## Exercise 2 — Moving average · `lib/moving_avg.c`
 
+📖 **Read first:** Lesson 6
+
 **Concepts:** circular buffers with `%` vs. power-of-two masks, running
 sums, choosing integer widths so arithmetic can't overflow, integer division
 semantics.
@@ -105,6 +114,8 @@ it cost in flexibility?
 
 ## Exercise 3 — First-order low-pass filter · `lib/lpf.c`
 
+📖 **Read first:** Lesson 7 (Parts A and C)
+
 **Concepts:** discretising an RC circuit, `float` vs `double` on a
 single-precision FPU, filter time constants, priming filter state.
 
@@ -125,6 +136,8 @@ spike?
 ---
 
 ## Exercise 4 — Debouncer state machine · `lib/debounce.c`
+
+📖 **Read first:** Lesson 8
 
 **Concepts:** explicit state machines (`enum` + `switch`), events vs.
 levels, wrap-safe time comparison, designing code that's testable without
@@ -156,6 +169,8 @@ That's the same reason Q0.1 works.
 
 ## Exercise 5 — Q15 fixed point · `lib/q15.c`
 
+📖 **Read first:** Lesson 7 (Part B)
+
 **Concepts:** Q-format numbers, saturation vs. wrap-around, rounding,
 intermediate widths, the one product (`-1 × -1`) that doesn't fit, and
 converting floats to integers safely.
@@ -183,6 +198,8 @@ awkward for gains like `kp = 2.0`?
 ---
 
 ## Exercise 6 — Where did everything go? (1 evening)
+
+📖 **Read first:** Lesson 9
 
 ```bash
 make firmware

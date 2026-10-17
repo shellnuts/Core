@@ -4,6 +4,7 @@ A learning workspace for embedded C, Cortex-M internals, peripheral drivers,
 RTOS, sensors and actuators, and control algorithms. It targets the
 **ALIENTEK Explorer (探索者) STM32F407ZGT6** board.
 
+- **[docs/lessons/](docs/lessons/README.md)**: beginner lessons, the knowledge behind the exercises (start here)
 - **[docs/ROADMAP.md](docs/ROADMAP.md)**: phase-by-phase plan with exercises and checklists
 - **[docs/BOARD.md](docs/BOARD.md)**: board pin map, documents to download, how to flash
 

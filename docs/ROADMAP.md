@@ -11,6 +11,8 @@ Concepts: bit manipulation, `volatile`, `const`, `static`, fixed-width
 types, integer promotion, pointers to registers, structs and unions, memory
 sections (`.text/.data/.bss`/stack/heap), fixed-point compared with float.
 
+**Beginner lessons: [docs/lessons/](lessons/README.md)** (read these first)
+
 **Guided exercises: [docs/phase1/README.md](phase1/README.md)** (run `make phase1` for the scoreboard)
 
 - [ ] Ex 0: read the starter code; questions on wrap-around, `volatile`, integer promotion
