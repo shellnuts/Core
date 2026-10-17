@@ -44,6 +44,7 @@ pick up (roadmap phase 3).
 
 ```bash
 make test        # run the PC-side unit tests: no board needed
+make phase1      # phase 1 exercise scoreboard (docs/phase1/README.md)
 make firmware    # -> build/firmware.elf / .bin / .hex
 make flash       # ST-LINK on the JTAG/SWD header
 #   or: make flash-isp SERIAL=/dev/ttyUSB0  (BOOT0=1, press RESET first)

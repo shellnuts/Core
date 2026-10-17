@@ -4,7 +4,7 @@ BUILD_DIR ?= build
 BUILD_TYPE ?= Debug
 SERIAL ?= /dev/ttyUSB0
 
-.PHONY: all firmware test flash flash-isp monitor plot clean help
+.PHONY: all firmware test phase1 flash flash-isp monitor plot clean help
 
 all: firmware
 
@@ -14,6 +14,9 @@ firmware:
 
 test:
 	$(MAKE) -C tests
+
+phase1:
+	@$(MAKE) -s -C tests phase1
 
 # SWD via ST-LINK on the 20-pin JTAG header.
 flash: firmware
@@ -37,6 +40,7 @@ clean:
 help:
 	@echo "make firmware    build build/firmware.{elf,bin,hex}"
 	@echo "make test        build and run host-side unit tests (lib/)"
+	@echo "make phase1      phase 1 exercise scoreboard"
 	@echo "make flash       program over SWD with an ST-LINK + OpenOCD"
 	@echo "make flash-isp   program over the USB_232 port (stm32flash)"
 	@echo "make monitor     serial terminal on SERIAL=$(SERIAL)"

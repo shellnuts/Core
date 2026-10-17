@@ -11,13 +11,17 @@ Concepts: bit manipulation, `volatile`, `const`, `static`, fixed-width
 types, integer promotion, pointers to registers, structs and unions, memory
 sections (`.text/.data/.bss`/stack/heap), fixed-point compared with float.
 
-- [ ] Read `lib/ringbuf.c` and explain why `head - tail` works after wrap-around.
-- [ ] Write `lib/debounce.c`: a debouncer as a state machine (IDLE → MAYBE_PRESSED → PRESSED → MAYBE_RELEASED), with host tests.
-- [ ] Write a Q15 fixed-point PID next to `lib/pid.c` and compare its step response with the float version in a host test.
-- [ ] Write `lib/moving_avg.c` and `lib/iir_lowpass.c` (first-order), with tests.
-- [ ] Read `build/firmware.map`. Find where `s_rx_storage` lives and why.
+**Guided exercises: [docs/phase1/README.md](phase1/README.md)** (run `make phase1` for the scoreboard)
 
-**Done when:** `make test` passes with your new modules and you can explain every keyword in `firmware/drivers/systick.c`.
+- [ ] Ex 0: read the starter code; questions on wrap-around, `volatile`, integer promotion
+- [ ] Ex 1: bit and bit-field helpers (`lib/bits.h`)
+- [ ] Ex 2: moving-average filter (`lib/moving_avg.c`)
+- [ ] Ex 3: first-order low-pass filter (`lib/lpf.c`)
+- [ ] Ex 4: debouncer state machine (`lib/debounce.c`), then KEY0 → LED1 on the board
+- [ ] Ex 5: Q15 fixed point + a fixed-point low-pass compared against float (`lib/q15.c`)
+- [ ] Ex 6: read the map file and disassembly
+
+**Done when:** `make phase1` shows 5/5, the questions in `docs/phase1/NOTES.md` are answered, and the debounced KEY0 works on the board.
 
 ## Phase 2 — Cortex-M4 core and bare metal (3–4 weeks)
 

@@ -1,6 +1,7 @@
 build/
-tests/test_ringbuf
-tests/test_pid
+tests/test_*
+!tests/test_*.c
+tests/*.log
 *.o
 *.map
 __pycache__/
