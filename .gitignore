@@ -1,0 +1,11 @@
+build/
+tests/test_ringbuf
+tests/test_pid
+*.o
+*.map
+__pycache__/
+*.csv
+*.png
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
