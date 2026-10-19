@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "STM32F407: build + flash + debug (ST-LINK)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "openocd",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/firmware.elf",
+            "configFiles": ["interface/stlink.cfg", "target/stm32f4x.cfg"],
+            "runToEntryPoint": "main",
+            "preLaunchTask": "make firmware"
+        },
+        {
+            "name": "STM32F407: attach to running target (ST-LINK)",
+            "type": "cortex-debug",
+            "request": "attach",
+            "servertype": "openocd",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/firmware.elf",
+            "configFiles": ["interface/stlink.cfg", "target/stm32f4x.cfg"]
+        }
+    ]
+}

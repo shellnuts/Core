@@ -36,10 +36,13 @@ pick up (roadmap phase 3).
 - [Arm GNU Toolchain](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads) (`arm-none-eabi-gcc`), CMake ≥ 3.20, make
   - Ubuntu/Debian: `sudo apt install gcc-arm-none-eabi libnewlib-arm-none-eabi cmake make openocd`
   - macOS: `brew install --cask gcc-arm-embedded && brew install cmake openocd`
-  - Windows: use WSL, or install the Arm toolchain, CMake and make (MSYS2)
+  - Windows: use WSL, or MSYS2. In the MSYS2 **CLANG64** shell, run `pacman -S make mingw-w64-clang-x86_64-{clang,cmake,ninja,arm-none-eabi-gcc,arm-none-eabi-newlib,openocd,gdb-multiarch}`. The VS Code configuration in `.vscode/` expects MSYS2 at `C:\msys64`.
 - To flash: an ST-LINK + OpenOCD, **or** `stm32flash` over the board's USB_232 port (see [docs/BOARD.md](docs/BOARD.md))
 - Python 3 with `pip install pyserial matplotlib` for the serial monitor and plots
-- Recommended editor: VS Code with the *Cortex-Debug* extension
+- Recommended editor: VS Code with the *Cortex-Debug* and *clangd* extensions
+  - Ctrl+Shift+B runs `make firmware`. The other `make` targets are under *Tasks: Run Task*.
+  - F5 builds, flashes over ST-LINK and stops at `main`.
+  - clangd reads `build/compile_commands.json`, so run `make firmware` once before you open a source file.
 
 ## Quick start
 

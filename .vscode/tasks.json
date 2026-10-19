@@ -1,0 +1,46 @@
+{
+    "version": "2.0.0",
+    // Every task runs in the MSYS2 CLANG64 shell, where the toolchain lives.
+    "options": {
+        "shell": {
+            "executable": "C:\\msys64\\usr\\bin\\bash.exe",
+            "args": ["--login", "-c"]
+        },
+        "env": { "MSYSTEM": "CLANG64", "CHERE_INVOKING": "1" }
+    },
+    "tasks": [
+        {
+            "label": "make firmware",
+            "type": "shell",
+            "command": "make firmware",
+            "group": { "kind": "build", "isDefault": true },
+            "problemMatcher": { "base": "$gcc", "fileLocation": "autoDetect" }
+        },
+        {
+            "label": "make test",
+            "type": "shell",
+            "command": "make test",
+            "group": { "kind": "test", "isDefault": true },
+            "problemMatcher": { "base": "$gcc", "fileLocation": ["autoDetect", "${workspaceFolder}/tests"] }
+        },
+        {
+            "label": "make phase1",
+            "type": "shell",
+            "command": "make phase1",
+            "group": "test",
+            "problemMatcher": { "base": "$gcc", "fileLocation": ["autoDetect", "${workspaceFolder}/tests"] }
+        },
+        {
+            "label": "make flash",
+            "type": "shell",
+            "command": "make flash",
+            "problemMatcher": { "base": "$gcc", "fileLocation": "autoDetect" }
+        },
+        {
+            "label": "make clean",
+            "type": "shell",
+            "command": "make clean",
+            "problemMatcher": []
+        }
+    ]
+}
