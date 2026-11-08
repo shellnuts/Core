@@ -1,0 +1,15 @@
+build/
+tests/test_*
+!tests/test_*.c
+tests/*.log
+*.o
+*.map
+__pycache__/
+*.csv
+*.png
+# Vendor PDFs (schematic, 43 MB dev guide): keep local, see docs/BOARD.md
+docs/datasheet/
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json

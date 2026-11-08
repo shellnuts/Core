@@ -1,0 +1,21 @@
+{
+    // Toolchain from MSYS2 CLANG64 (see README "Setup"). Not on the Windows PATH.
+    "cortex-debug.armToolchainPath.windows": "C:/msys64/clang64/bin",
+    "cortex-debug.gdbPath.windows": "C:/msys64/clang64/bin/gdb-multiarch.exe",
+    "cortex-debug.openocdPath.windows": "C:/msys64/clang64/bin/openocd.exe",
+
+    // New terminals open in the CLANG64 shell, so `make test` / `make firmware` work.
+    "terminal.integrated.profiles.windows": {
+        "MSYS2 CLANG64": {
+            "path": "C:\\msys64\\usr\\bin\\bash.exe",
+            "args": ["--login", "-i"],
+            "env": { "MSYSTEM": "CLANG64", "CHERE_INVOKING": "1" },
+            "icon": "terminal-bash"
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "MSYS2 CLANG64",
+
+    // clangd reads build/compile_commands.json (written by `make firmware`);
+    // --query-driver lets it pick up the newlib headers from arm-none-eabi-gcc.
+    "clangd.arguments": ["--query-driver=C:/msys64/clang64/bin/arm-none-eabi-gcc*"]
+}
