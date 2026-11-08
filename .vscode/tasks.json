@@ -41,6 +41,20 @@
             "type": "shell",
             "command": "make clean",
             "problemMatcher": []
+        },
+        {
+            // Builds the open .c file alone into <name>.exe beside it (used by F5 "Debug current C file").
+            "label": "build current C file",
+            "type": "process",
+            "command": "C:/msys64/clang64/bin/clang.exe",
+            "args": [
+                "-std=c11", "-Wall", "-Wextra", "-g", "-O0",
+                "-I${workspaceFolder}/lib",
+                "${file}",
+                "-o", "${fileDirname}/${fileBasenameNoExtension}.exe",
+                "-lm"
+            ],
+            "problemMatcher": { "base": "$gcc", "fileLocation": "autoDetect" }
         }
     ]
 }
