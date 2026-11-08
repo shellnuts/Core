@@ -18,39 +18,34 @@
 
 static inline uint32_t bit_set(uint32_t reg, unsigned bit)
 {
-    /* TODO: return reg with 'bit' set to 1. */
-    (void)bit;
+    reg |= 1u << bit;
     return reg;
 }
 
 static inline uint32_t bit_clear(uint32_t reg, unsigned bit)
 {
     /* TODO: return reg with 'bit' cleared to 0. */
-    (void)bit;
+    reg &= ~(1u << bit);
     return reg;
 }
 
 static inline uint32_t bit_toggle(uint32_t reg, unsigned bit)
 {
-    /* TODO: return reg with 'bit' inverted. */
-    (void)bit;
+
+    reg ^= 1u << bit;
     return reg;
 }
 
 static inline bool bit_read(uint32_t reg, unsigned bit)
 {
-    /* TODO: return true if 'bit' is 1. */
-    (void)reg;
-    (void)bit;
-    return false;
+
+    return (reg >> bit) & 1u;
 }
 
 /* A mask with the low 'width' bits set: width 3 -> 0b111. Handle width 32! */
 static inline uint32_t bit_mask(unsigned width)
 {
-    /* TODO */
-    (void)width;
-    return 0;
+    return width == 32u ? UINT32_MAX : (1u << width) - 1u;
 }
 
 /* Extract the 'width'-bit field starting at bit 'pos', shifted down to bit 0.
@@ -58,10 +53,7 @@ static inline uint32_t bit_mask(unsigned width)
 static inline uint32_t field_get(uint32_t reg, unsigned pos, unsigned width)
 {
     /* TODO: use bit_mask() */
-    (void)reg;
-    (void)pos;
-    (void)width;
-    return 0;
+    return (reg >> pos) & bit_mask(width);              
 }
 
 /* Replace the field with 'value', leaving every other bit untouched.
@@ -69,11 +61,8 @@ static inline uint32_t field_get(uint32_t reg, unsigned pos, unsigned width)
  * Example: field_set(0xFFFFFFFF, 4, 8, 0x00) == 0xFFFFF00F */
 static inline uint32_t field_set(uint32_t reg, unsigned pos, unsigned width, uint32_t value)
 {
-    /* TODO: clear the field, then OR in the masked, shifted value */
-    (void)pos;
-    (void)width;
-    (void)value;
-    return reg;
+    uint32_t mask = bit_mask(width) << pos;
+    return (reg & ~mask) | ((value & bit_mask(width)) << pos);
 }
 
 #endif
