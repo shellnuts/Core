@@ -7,6 +7,8 @@ tests/*.log
 __pycache__/
 *.csv
 *.png
+# Vendor PDFs (schematic, 43 MB dev guide): keep local, see docs/BOARD.md
+docs/datasheet/
 .vscode/*
 !.vscode/launch.json
 !.vscode/settings.json
