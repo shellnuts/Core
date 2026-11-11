@@ -24,7 +24,6 @@ static inline uint32_t bit_set(uint32_t reg, unsigned bit)
 
 static inline uint32_t bit_clear(uint32_t reg, unsigned bit)
 {
-    /* TODO: return reg with 'bit' cleared to 0. */
     reg &= ~(1u << bit);
     return reg;
 }
@@ -52,8 +51,7 @@ static inline uint32_t bit_mask(unsigned width)
  * Example: field_get(0x0000ABCD, 4, 8) == 0xBC */
 static inline uint32_t field_get(uint32_t reg, unsigned pos, unsigned width)
 {
-    /* TODO: use bit_mask() */
-    return (reg >> pos) & bit_mask(width);              
+    return (reg >> pos) & bit_mask(width);
 }
 
 /* Replace the field with 'value', leaving every other bit untouched.

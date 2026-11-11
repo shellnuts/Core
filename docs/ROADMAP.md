@@ -30,7 +30,7 @@ sections (`.text/.data/.bss`/stack/heap), fixed-point compared with float.
 **Guided exercises: [docs/phase1/README.md](phase1/README.md)** (run `make phase1` for the scoreboard)
 
 - [ ] Ex 0: read the starter code; questions on wrap-around, `volatile`, integer promotion
-- [ ] Ex 1: bit and bit-field helpers (`lib/bits.h`)
+- [x] Ex 1: bit and bit-field helpers (`lib/bits.h`)
 - [ ] Ex 2: moving-average filter (`lib/moving_avg.c`)
 - [ ] Ex 3: first-order low-pass filter (`lib/lpf.c`)
 - [ ] Ex 4: debouncer state machine (`lib/debounce.c`), then KEY0 → LED1 on the board
