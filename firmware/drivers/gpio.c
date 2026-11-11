@@ -1,16 +1,11 @@
 #include "gpio.h"
 
+#include "bits.h"
+
 static uint32_t port_index(const GPIO_TypeDef *port)
 {
     /* GPIO ports are 0x400 apart starting at GPIOA. */
     return ((uint32_t)port - (uint32_t)GPIOA) / 0x400u;
-}
-
-/* Replace a 'width'-bit field at 'pos' with 'value'. */
-static void set_field(volatile uint32_t *reg, uint32_t pos, uint32_t width, uint32_t value)
-{
-    uint32_t mask = ((1u << width) - 1u) << pos;
-    *reg = (*reg & ~mask) | ((value << pos) & mask);
 }
 
 void gpio_config(GPIO_TypeDef *port, uint8_t pin, gpio_mode_t mode,
@@ -21,13 +16,16 @@ void gpio_config(GPIO_TypeDef *port, uint8_t pin, gpio_mode_t mode,
      * enabling a peripheral clock before accessing it. A read-back works. */
     (void)RCC->AHB1ENR;
 
-    set_field(&port->OTYPER, pin, 1, otype);
-    set_field(&port->OSPEEDR, pin * 2u, 2, speed);
-    set_field(&port->PUPDR, pin * 2u, 2, pull);
-    set_field(&port->MODER, pin * 2u, 2, mode);
+    /* field_set() is a pure function, so each line is one register read,
+     * the new value computed in a CPU register, and one register write. */
+    port->OTYPER  = field_set(port->OTYPER,  pin,      1, otype);
+    port->OSPEEDR = field_set(port->OSPEEDR, pin * 2u, 2, speed);
+    port->PUPDR   = field_set(port->PUPDR,   pin * 2u, 2, pull);
+    port->MODER   = field_set(port->MODER,   pin * 2u, 2, mode); /* last: pin goes live */
 }
 
 void gpio_set_af(GPIO_TypeDef *port, uint8_t pin, uint8_t af)
 {
-    set_field(&port->AFR[pin >> 3], (pin & 7u) * 4u, 4, af);
+    /* AFR[0] holds pins 0-7, AFR[1] pins 8-15, 4 bits per pin. */
+    port->AFR[pin >> 3] = field_set(port->AFR[pin >> 3], (pin & 7u) * 4u, 4, af);
 }
