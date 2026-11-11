@@ -3,6 +3,20 @@
 Each phase lists **concepts**, **exercises** (do them in this repo) and a
 **done when** check. Tick the boxes as you go. Times assume roughly 8–10 hours a week.
 
+## Vendor files: when they replace hand-written code
+
+You write each layer by hand first. After that, you switch to the vendor's version of the same layer.
+Vendor code goes in `third_party/`, pinned to a release (a git submodule or a copied file), and you do not edit it.
+Your own code stays in `firmware/` and calls the vendor code.
+
+| When | Vendor files | Source | What changes |
+| --- | --- | --- | --- |
+| Now | STM32F407 SVD (register descriptions for the debugger) | ST's STM32F4 SVD pack v2.0 (file version 1.7, Apache-2.0), from the `modm-io/cmsis-svd-stm32` mirror. In `third_party/svd/` | The Cortex-Debug Peripherals view shows every register by name. No code changes |
+| End of phase 2 | `core_cm4.h`, `stm32f407xx.h`, `system_stm32f4xx.h` | `ARM-software/CMSIS_5`, `STMicroelectronics/cmsis_device_f4` | They replace `firmware/include/stm32f407.h`. Your C startup and linker script stay |
+| Phase 3 | LL and HAL drivers, a CubeMX project (`.ioc`) | `STMicroelectronics/stm32f4xx_hal_driver`, STM32CubeMX | You compare each register-level driver with LL. CubeMX checks the clock tree and pins |
+| Phase 4 | FreeRTOS kernel | `FreeRTOS/FreeRTOS-Kernel`, port `GCC/ARM_CM4F` | Tasks replace the main loop |
+| Phases 5–6 | USB device library, FatFs, LwIP, CMSIS-DSP | STM32CubeF4 (through CubeMX), `ARM-software/CMSIS-DSP` | CubeMX output goes in `third_party/cube/` |
+
 ---
 
 ## Phase 1 — Embedded C (2–4 weeks)
@@ -33,18 +47,22 @@ HardFault analysis, FPU lazy stacking.
 
 - [ ] Flash the starter (`make flash` or `make flash-isp`) and talk to it with `make monitor`.
 - [ ] Step through `Reset_Handler` in the debugger. Watch `.data` get copied.
+- [ ] In the debugger's Peripherals view (from the SVD), watch `RCC` `CR` and `CFGR` change while `clock_init()` runs, and `GPIOF` `ODR` bit 9 change when LED0 toggles.
 - [ ] Change the PLL to 84 MHz. What has to change elsewhere? (BRR, SysTick, flash latency)
 - [ ] Output SYSCLK/4 on the MCO2 pin (PC9) and measure it with a logic analyzer.
 - [ ] Use EXTI interrupts for the keys instead of polling.
 - [ ] Write a `HardFault_Handler` that prints PC, LR, CFSR, HFSR and BFAR. Trigger it on purpose (`*(int*)0x1 = 0;`).
 - [ ] Measure interrupt latency: toggle a GPIO in an ISR and scope it against the trigger.
+- [ ] Switch to the CMSIS headers. Add `ARM-software/CMSIS_5` (for `core_cm4.h`) and `STMicroelectronics/cmsis_device_f4` (for `stm32f407xx.h`) as submodules in `third_party/`, pinned to release tags. Port the drivers to the CMSIS names (`FLASH_R` becomes `FLASH`, and `nvic_enable_irq()` becomes `NVIC_SetPriority()` + `NVIC_EnableIRQ()`). Then delete `firmware/include/stm32f407.h`. Git history keeps your version.
 
-**Done when:** you can draw the boot sequence from memory and debug a HardFault to the offending line.
+**Done when:** you can draw the boot sequence from memory, debug a HardFault to the offending line, and the firmware builds with the CMSIS headers.
 
 ## Phase 3 — Peripheral drivers (4–6 weeks)
 
-Write each driver with registers first. Then compare it with ST's LL and HAL drivers (STM32CubeF4).
+Write each driver with registers first. Then compare it with ST's LL and HAL drivers. Add them from `STMicroelectronics/stm32f4xx_hal_driver` as a submodule in `third_party/`.
 
+- [ ] **CubeMX as a checker:** make a CubeMX project (`.ioc`) for the Explorer board with the 8 MHz crystal and 168 MHz clock. Check your clock tree and pin choices against it, and read the init code it generates. Do not copy that code into `firmware/`.
+- [ ] **LL comparison:** for one finished driver (GPIO or UART), write a second version with the LL functions and compare the disassembly of both.
 - [ ] **Timers:** PWM on LED0 (TIM14_CH1, PF9) with breathing brightness.
 - [ ] **Timers:** generate a 1 kHz control-loop interrupt from TIM6. Toggle a pin and measure the jitter.
 - [ ] **Input capture:** decode the IR remote (PA8). Measure the PWM duty cycle of an external signal.
@@ -59,7 +77,7 @@ Write each driver with registers first. Then compare it with ST's LL and HAL dri
 
 ## Phase 4 — RTOS (3–4 weeks)
 
-Add FreeRTOS (the kernel source, or through CubeMX) to this project.
+Add the FreeRTOS kernel source (`FreeRTOS/FreeRTOS-Kernel`, port `GCC/ARM_CM4F`) as a submodule in `third_party/`. CubeMX can also generate it, but then it comes wrapped in the CMSIS-RTOS layer.
 
 Concepts: tasks, priorities, the preemptive scheduler, PendSV/SVC context
 switching, queues, semaphores, mutexes, priority inversion, task notifications,
@@ -83,6 +101,7 @@ a quadrature encoder, a TB6612FNG or L298N driver, an SG90 servo, a 28BYJ-48 ste
 - [ ] DC motor: PWM at 20 kHz (inaudible), direction pins, encoder speed measurement.
 - [ ] Stepper with acceleration ramps (timer-driven step pulses).
 - [ ] DS18B20 on PG9: one-wire timing with microsecond delays (DWT cycle counter).
+- [ ] USB CDC telemetry on the USB_SLAVE port with ST's USB device library. Generate it with CubeMX into `third_party/cube/` and call it from `firmware/`.
 
 ## Phase 6 — Control algorithms (ongoing)
 
@@ -97,7 +116,7 @@ Theory: Brian Douglas's control videos; *Feedback Systems* (Åström & Murray) c
 - [ ] **Light-level control:** LED PWM → LDR (PF7) → PID. A whole closed loop using only on-board parts.
 - [ ] **Temperature control:** a resistor heater + DS18B20. It's a slow plant, so integral windup really matters.
 - [ ] Capstone: a self-balancing robot (IMU fusion + cascaded PID or LQR + FreeRTOS).
-- [ ] Stretch: state-space / LQR design in Python (`python-control`), implemented with the CMSIS-DSP matrix functions.
+- [ ] Stretch: state-space / LQR design in Python (`python-control`), implemented with the CMSIS-DSP matrix functions (`ARM-software/CMSIS-DSP`, a submodule in `third_party/`).
 
 ## Reference shelf
 - *Making Embedded Systems*, Elecia White

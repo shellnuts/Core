@@ -10,6 +10,8 @@
             "cwd": "${workspaceFolder}",
             "executable": "${workspaceFolder}/build/firmware.elf",
             "configFiles": ["interface/stlink.cfg", "target/stm32f4x.cfg"],
+            // ST's register descriptions: the Peripherals view shows every register by name.
+            "svdFile": "${workspaceFolder}/third_party/svd/STM32F407.svd",
             "runToEntryPoint": "main",
             "preLaunchTask": "make firmware"
         },
@@ -20,7 +22,8 @@
             "servertype": "openocd",
             "cwd": "${workspaceFolder}",
             "executable": "${workspaceFolder}/build/firmware.elf",
-            "configFiles": ["interface/stlink.cfg", "target/stm32f4x.cfg"]
+            "configFiles": ["interface/stlink.cfg", "target/stm32f4x.cfg"],
+            "svdFile": "${workspaceFolder}/third_party/svd/STM32F407.svd"
         },
         {
             // PC-side: compile the open .c file and debug it with MSYS2 gdb.
